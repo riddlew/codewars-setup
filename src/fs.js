@@ -1,20 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const sourceCode = `export default function NAME() {
-
-}`;
-
-const testCode = `import { describe, it } from "mocha";
-import { assert } from "chai";
-import solution from "./solution.js";
-
-`;
-
 const optDefaults = {
 	spaces: '',
 	other: '',
 };
+
 // TODO: Test
 module.exports = {
 	slugify: (name, opts) => {
@@ -41,7 +32,7 @@ module.exports = {
 			return false;
 		}
 	},
-	createFiles: (p) => {
+	createFiles: (p, kyu, title) => {
 		try {
 			const sourceFile = path.join(p, 'solution.js');
 			const testFile = path.join(p, 'solution.test.js');
@@ -50,6 +41,17 @@ module.exports = {
 				console.error("Source and test files already exist");
 				return false;
 			}
+
+			const sourceCode = `export default function NAME() {
+
+			}`;
+
+			const testCode = `import { describe, it } from "mocha";
+import { assert } from "chai";
+import solution from "./solution.js";
+
+describe("${kyu}/${title}", function() {
+});`;
 
 			fs.writeFileSync(sourceFile, sourceCode);
 			fs.writeFileSync(testFile, testCode);

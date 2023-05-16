@@ -21,7 +21,7 @@ const run = async () => {
 	console.log(`title = ${titleSlug}`)
 	const p = createDir('leetcode/leetcode-js/codewars', kyuSlug, titleSlug);
 	if (p) {
-		createFiles(p);
+		createFiles(p, kyuSlug, titleSlug);
 	}
 };
 
